@@ -1888,9 +1888,7 @@ do
         );
 
         function Toggle:UpdateColors()
-            if not Toggle.CustomColor then
-                Toggle:Display();
-            end
+            Toggle:Display()
         end;
 
         if type(Info.Tooltip) == 'string' then
@@ -1900,7 +1898,7 @@ do
         function Toggle:Display()
             ToggleInner.BackgroundColor3 = Toggle.Value and Library.AccentColor or Library.MainColor;
             ToggleInner.BorderColor3 = Toggle.Value and Library.AccentColorDark or Library.OutlineColor;
-
+    
             Library.RegistryMap[ToggleInner].Properties.BackgroundColor3 = Toggle.Value and 'AccentColor' or 'MainColor';
             Library.RegistryMap[ToggleInner].Properties.BorderColor3 = Toggle.Value and 'AccentColorDark' or 'OutlineColor';
         end;
@@ -1935,6 +1933,12 @@ do
             end;
         end);
 
+        if Info.CustomColor then
+            Library:RemoveFromRegistry(ToggleLabel)
+            ToggleLabel.TextColor3 = Info.CustomColorCode
+            Library:AddToRegistry(ToggleLabel, { TextColor3 = 'CustomColor' })
+        end
+        
         if Toggle.Risky then
             Library:RemoveFromRegistry(ToggleLabel)
             ToggleLabel.TextColor3 = Library.RiskColor
