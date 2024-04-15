@@ -1821,6 +1821,8 @@ do
             Value = Info.Default or false;
             Type = 'Toggle';
 
+            CustomColor = Info.Custom or false,
+            CustomColorCode = Info.CustomColorCode or nil,
             Callback = Info.Callback or function(Value) end;
             Addons = {},
             Risky = Info.Risky,
@@ -1886,7 +1888,9 @@ do
         );
 
         function Toggle:UpdateColors()
-            Toggle:Display();
+            if not Toggle.CustomColor then
+                Toggle:Display();
+            end
         end;
 
         if type(Info.Tooltip) == 'string' then
